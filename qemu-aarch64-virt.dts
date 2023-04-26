@@ -8,10 +8,10 @@
 	compatible = "linux,dummy-virt";
 
 	psci {
-		migrate = <0x84000005>;
-		cpu_on = <0x84000003>;
+		migrate = <0xc4000005>;
+		cpu_on = <0xc4000003>;
 		cpu_off = <0x84000002>;
-		cpu_suspend = <0x84000001>;
+		cpu_suspend = <0xc4000001>;
 		method = "hvc";
 		compatible = "arm,psci-1.0\0arm,psci-0.2\0arm,psci";
 	};
@@ -313,6 +313,8 @@
 	};
 
 	pmu {
+		interrupts = <0x01 0x07 0xf04>;
+		compatible = "arm,armv8-pmuv3";
 	};
 
 	intc@8000000 {
@@ -372,7 +374,7 @@
 			phandle = <0x8004>;
 			reg = <0x00>;
 			enable-method = "psci";
-			compatible = "arm,cortex-a15";
+			compatible = "arm,cortex-a53";
 			device_type = "cpu";
 		};
 
@@ -380,7 +382,7 @@
 			phandle = <0x8003>;
 			reg = <0x01>;
 			enable-method = "psci";
-			compatible = "arm,cortex-a15";
+			compatible = "arm,cortex-a53";
 			device_type = "cpu";
 		};
 
@@ -388,7 +390,7 @@
 			phandle = <0x8002>;
 			reg = <0x02>;
 			enable-method = "psci";
-			compatible = "arm,cortex-a15";
+			compatible = "arm,cortex-a53";
 			device_type = "cpu";
 		};
 
@@ -396,7 +398,7 @@
 			phandle = <0x8001>;
 			reg = <0x03>;
 			enable-method = "psci";
-			compatible = "arm,cortex-a15";
+			compatible = "arm,cortex-a53";
 			device_type = "cpu";
 		};
 	};
@@ -404,7 +406,7 @@
 	timer {
 		interrupts = <0x01 0x0d 0xf04 0x01 0x0e 0xf04 0x01 0x0b 0xf04 0x01 0x0a 0xf04>;
 		always-on;
-		compatible = "arm,armv7-timer";
+		compatible = "arm,armv8-timer\0arm,armv7-timer";
 	};
 
 	apb-pclk {
@@ -417,7 +419,7 @@
 
 	chosen {
 		stdout-path = "/pl011@9000000";
-		rng-seed = <0x14c79fee 0x8ba89a54 0xf8a85c58 0x669d57c0 0xb508b54f 0xab3b77f5 0xe44260d1 0x8ef2b2>;
-		kaslr-seed = <0x950f456a 0x69662584>;
+		rng-seed = <0xaaffd3f0 0x862e7c35 0x116abc43 0xa9c6dc05 0xdb35363 0x84ef9327 0xe3cada5f 0xd72905e9>;
+		kaslr-seed = <0xcf29b592 0x822803af>;
 	};
 };
