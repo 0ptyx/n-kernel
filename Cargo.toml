@@ -7,6 +7,4 @@ edition = "2021"
 [profile.dev]
 panic = "abort"
 
-[build]
-target = "riscv64gc-unknown-none-elf"
 [dependencies]
