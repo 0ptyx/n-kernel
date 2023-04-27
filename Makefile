@@ -22,7 +22,7 @@ $(KERNEL_BIN): $(KERNEL_ELF)
 
 
 qemu: $(KERNEL_BIN)
-	qemu-system-aarch64 $(QEMU_DEBUG) -display none -serial stdio -cpu cortex-a53 -smp 4 -machine virt -d in_asm $(QEMU_EXTA) -kernel $(KERNEL_BIN)
+	qemu-system-aarch64 $(QEMU_DEBUG) -display none -serial stdio -cpu cortex-a53 -m 2G -smp 4 -machine virt -d in_asm $(QEMU_EXTRA) -kernel $(KERNEL_ELF)
 
 
 clean:

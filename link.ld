@@ -1,10 +1,8 @@
 
-/* SBI takes up 0x80000000 - 0x80046500 so put it somewhere else? */
-/* or 0? */
-__sbi_load_addr = 0x80000000;
+__kernel_load_addr = 0x50000000;
 
 
-ENTRY(__rpi_phys_binary_load_addr)
+ENTRY(_start)
 
 /* Flags:
  *     4 == R
@@ -14,11 +12,12 @@ ENTRY(__rpi_phys_binary_load_addr)
 PHDRS
 {
     segment_code PT_LOAD FLAGS(5);
+    segment_data PT_LOAD FLAGS(6);
 }
 
 SECTIONS
 {
-    . =  __sbi_load_addr;
+    . =  __kernel_load_addr;
 
     /***********************************************************************************************
     * Code
@@ -28,5 +27,20 @@ SECTIONS
         KEEP(*(.text._start))
     } :segment_code
 
+    .rodata : ALIGN(8)
+    {
+        *(.rodata*)
+    } :segment_code
+    
+    .data :
+    {
+        *(.data*)
+    } :segment_data
 
+    .bss (NOLOAD) : ALIGN(16)
+    {
+        __bss_start = .;
+        *(.bss*)
+        __bss_end = .;
+    } :segment_data
 }
