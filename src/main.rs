@@ -3,7 +3,7 @@
 
 use core::arch::global_asm;
 mod panic;
-global_asm!(include_str!("boot.S"));
+mod boot;
 
 fn kmain() -> ! {
     loop {}
